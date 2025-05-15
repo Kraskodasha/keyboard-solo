@@ -13,30 +13,24 @@ function generateRandomWord() {
     letterContainer.textContent = currentWord[i];
     wordContainer.appendChild(letterContainer);
   }
-
-  const spans = document.querySelectorAll(".word span");
-
-  document.addEventListener("keydown", function(event) {
-    const pressedKey = event.key.toLowerCase();
-    const currentChar = currentWord[currentIndex].toLowerCase();
-    
-    if (pressedKey != currentChar) {
-      spans[currentIndex].classList.add("w");
-    } else if (pressedKey === currentChar){
-      spans[currentIndex].classList.remove("w");
-      spans[currentIndex].classList.add("c");
-      currentIndex++;
-      
-      setTimeout(() => {
-        spans[currentIndex].classList.remove("w");
-      }, 1000);
-    }
-
-    if (currentIndex === currentWord.length) {
-      spans[currentIndex].classList.add("c");
-      setTimeout(generateRandomWord, 2000);
-    }
-  });
 } 
+
+document.addEventListener("keydown", function(event) {
+  const spans = document.querySelectorAll(".word span");
+  const pressedKey = event.key.toLowerCase();
+  const currentChar = currentWord[currentIndex].toLowerCase();
+  
+  if (pressedKey != currentChar) {
+    spans[currentIndex].classList.add("w");
+  } else if (pressedKey === currentChar){
+    spans[currentIndex].classList.remove("w");
+    spans[currentIndex].classList.add("c");
+    currentIndex++;
+  }
+
+  if (currentIndex === currentWord.length - 1) {
+    setTimeout(generateRandomWord, 2000);
+  }
+});
 
 generateRandomWord();
